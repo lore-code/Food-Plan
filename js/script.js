@@ -20,9 +20,27 @@ $("#listbutton").on('click',function(){
 
 				console.log(newArray[y[j]]);
 
-				$("#list").append('<p>Protein</p><ul><li>' +  newArray[y[j]]);
+				var protein1= newArray[y[j]];
+
+				
+
+				$("#list").append('<ul><li>' +  protein1 + '</li></ul>');
+
+				//match protein1 to array to then get serving size 
+
+				var resultObject = search(protein1, array);
+				
+
+
 			}
-		}
+
+			
+
+
+	}
+
+			
+		
 
 				
 
@@ -121,14 +139,7 @@ $(".form-control").change(function(){
 	}	
 
 
-		if(test==="Plan A") {
-			
-
-			console.log('You chose' + test);
-
-			selection();
-
-		}
+		selection();
 
 });
 
@@ -136,6 +147,27 @@ $(".form-control").change(function(){
 
 
 			
+
+function search(nameKey, myArray){
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].value === nameKey) {
+
+            var resObj = myArray[i];
+
+            console.log(resObj);
+
+            $("#list").append(resObj.name);
+
+        }
+    }
+}
+
+var array = [
+    { name:"string 1", value:"chicken", other: "that" },
+    { name:"string 2", value:"4", other: "that" },
+    { name:"string 3", value:"3", other: "that" }
+
+];
 
 
 
