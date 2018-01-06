@@ -7,24 +7,19 @@ $("#listbutton").on('click',function(){
 
 			if(test==="Plan A") {
 			
-
-			protein_count=2;
-
 			
+					protein_count = 5;
 
-			y= chance.unique(chance.integer,protein_count, {min: 0, max: newArray.length-1});
+			y= chance.unique(chance.integer,protein_count, {min: 0, max: proteinArray.length-1});
 
 			console.log(y);
 
 			for (var j = 0; j<y.length; j++) {
 
-				console.log(newArray[y[j]]);
+				console.log(proteinArray[y[j]]);
 
-				var protein1= newArray[y[j]];
+				var protein1= proteinArray[y[j]];
 
-				
-
-				$("#list").append('<ul><li>' +  protein1 + '</li></ul>');
 
 				//match protein1 to array to then get serving size 
 
@@ -90,23 +85,28 @@ $(".form-control").change(function(){
 
 	console.log(test);
 
+	
+
+
 	function selection () {	
 		var $multiSel = $(".select1").multipleSelect({
 		  placeholder: "Here is the placeholder",
 		  width: 200,
 		  filter: true,
-		  selectAll: true,
+		  selectAll: false,
 		  onClick: function(view) {
 		    var $checkboxes = $multiSel.next().find("input[type='checkbox']").not(":checked");
 		    var selectedLen = $multiSel.multipleSelect('getSelects');
 		   
 		   	
-		    newArray = protein.concat(selectedLen);
-		   	console.log(newArray);
+		    proteinArray = protein.concat(selectedLen);
+		   	console.log(proteinArray);
 
 		   	length = selectedLen.length;
 
 		   	console.log(length);
+
+		   	
 
 
 		}
@@ -119,18 +119,17 @@ $(".form-control").change(function(){
 		  placeholder: "Here is the placeholder",
 		  width: 200,
 		  filter: true,
-		  selectAll: true,
+		  selectAll: false,
 		  onClick: function(view) {
 		    var $checkboxes1 = $multiSel1.next().find("input[type='checkbox']").not(":checked");
 		    var selectedLen1 = $multiSel1.multipleSelect('getSelects');
 		   
 		   	
-		    newArray1 = fruit.concat(selectedLen1);
-		   	console.log(newArray);
+		    fruitArray = fruit.concat(selectedLen1);
 
-		   	length+= selectedLen1.length;
+		   	length1 =selectedLen1.length;
 
-		   	console.log(length);
+		   	console.log(length1);
 
 
 		}
@@ -138,10 +137,17 @@ $(".form-control").change(function(){
 
 	}	
 
+		if (test==="Plan A") {
 
-		selection();
+			selection();
+
+		}
 
 });
+			
+		
+
+
 
 
 
@@ -152,11 +158,11 @@ function search(nameKey, myArray){
     for (var i=0; i < myArray.length; i++) {
         if (myArray[i].value === nameKey) {
 
-            var resObj = myArray[i];
+            resObj = myArray[i];
 
-            console.log(resObj);
+            console.log(resObj); 
 
-            $("#list").append(resObj.name);
+            $("#list").append(resObj.value + " ");
 
         }
     }
@@ -164,8 +170,8 @@ function search(nameKey, myArray){
 
 var array = [
     { name:"string 1", value:"chicken", other: "that" },
-    { name:"string 2", value:"4", other: "that" },
-    { name:"string 3", value:"3", other: "that" }
+    { name:"string 2", value:"okay", other: "that" },
+    { name:"string 3", value:"test", other: "that" }
 
 ];
 
