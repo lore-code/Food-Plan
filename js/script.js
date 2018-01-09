@@ -9,10 +9,14 @@ $("#listbutton").on('click',function(){
 			
 			
 					protein_count = 5;
+					fruit_count = 2;
 
 			y= chance.unique(chance.integer,protein_count, {min: 0, max: proteinArray.length-1});
+			z= chance.unique(chance.integer,fruit_count, {min: 0, max: fruitArray.length-1});
 
 			console.log(y);
+
+			//iterate over random array and make var protein1 = proteinArray[y[j]]
 
 			for (var j = 0; j<y.length; j++) {
 
@@ -24,10 +28,23 @@ $("#listbutton").on('click',function(){
 				//match protein1 to array to then get serving size 
 
 				var resultObject = search(protein1, array);
-				
 
 
 			}
+
+			for (var k = 0; k<z.length; k++) {
+
+						console.log(fruitArray[z[k]]);
+
+						var fruit1= fruitArray[z[k]];
+
+
+						//match protein1 to array to then get serving size 
+
+						var resultObject = search(fruit1, array);
+
+
+					}
 
 			
 
@@ -59,9 +76,10 @@ var protein = [];
 
 var fats = []; 
 
-var newArray;
+var listArray= [];
 
 var protein_count;
+
 
 var length;
 
@@ -71,6 +89,7 @@ var test;
 
 $(".select1").hide();
 $(".select2").hide();
+$(".table").hide();
 
 
 // When select is changed then add value to vatiable if x plan then do something...
@@ -91,22 +110,20 @@ $(".form-control").change(function(){
 	function selection () {	
 		var $multiSel = $(".select1").multipleSelect({
 		  placeholder: "Here is the placeholder",
-		  width: 200,
 		  filter: true,
 		  selectAll: false,
+		  width: 300,
 		  onClick: function(view) {
 		    var $checkboxes = $multiSel.next().find("input[type='checkbox']").not(":checked");
 		    var selectedLen = $multiSel.multipleSelect('getSelects');
 		   
-		   	
+		   	console.log(selectedLen);
 		    proteinArray = protein.concat(selectedLen);
 		   	console.log(proteinArray);
 
-		   	length = selectedLen.length;
 
-		   	console.log(length);
 
-		   	
+		   
 
 
 		}
@@ -124,16 +141,26 @@ $(".form-control").change(function(){
 		    var $checkboxes1 = $multiSel1.next().find("input[type='checkbox']").not(":checked");
 		    var selectedLen1 = $multiSel1.multipleSelect('getSelects');
 		   
+		   	console.log(selectedLen1);
 		   	
 		    fruitArray = fruit.concat(selectedLen1);
 
-		   	length1 =selectedLen1.length;
+		   	
 
-		   	console.log(length1);
+
+
+
+
+
+		   
 
 
 		}
+
+
 		});
+
+		
 
 	}	
 
@@ -156,22 +183,39 @@ $(".form-control").change(function(){
 
 function search(nameKey, myArray){
     for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].value === nameKey) {
+         if (myArray[i].name === nameKey) {
 
             resObj = myArray[i];
 
             console.log(resObj); 
+            
 
-            $("#list").append(resObj.value + " ");
+            if (listArray.indexOf(myArray[i].name) === -1) {
+
+            	$(".table").show();
+            $(".table").append('<tbody>' +
+						    '<tr>' +
+						      '<td>' + resObj.name + '</td>' +
+						      '<td>' + resObj.value + '</td>' +
+						      '<td>' + resObj.other + '</td>' +
+						    '</tr></thead></table>');
+            listArray = listArray.concat(myArray[i].name);
+
+        	}
+
+
+
+				console.log(listArray);
 
         }
     }
 }
 
 var array = [
-    { name:"string 1", value:"chicken", other: "that" },
-    { name:"string 2", value:"okay", other: "that" },
-    { name:"string 3", value:"test", other: "that" }
+    { name:"Sardines", value:"3 oz", other: "Protein" },
+    { name:"Eggs", value:"2", other: "Protein" },
+    { name:"Apple", value:"Apple", other: "Fruit" },
+    { name:"Boneless Chicken or Turkey Breast", value:"3 oz cooked", other: "Protein" }
 
 ];
 
