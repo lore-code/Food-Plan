@@ -1,19 +1,44 @@
 
-
+$("#info").hide();
 
 $("#pickitems").on('click',function(){
 
+			for (var i=0; i<7; i++) {
 				protein_list();
 				fruit_list();
+				$("#info").show();
 
+			}
+			
+			
 });
 
 $("#pickAgain").on("click", function () {
 
+
+
+	
 	erase_list();
+	for (var i=0; i<7; i++) {
 	protein_list();
 	fruit_list();
+
+}
+
+	
+});
+
+$("#emaillist").on ("click", function () {
+
+	email();
 })
+
+function email () {
+
+	var body = '<h4>' + listArray + '</h4>'
+ 
+    window.location.href = 'mailto:?&subject=' + encodeURI("This is my subject") + '&body=' + encodeURI(body);
+}
 
 
 function erase_list () {
@@ -27,20 +52,25 @@ function erase_list () {
 
 function protein_list() {
 
+
+
 	y= chance.unique(chance.integer,protein_count, {min: 0, max: 16});
 
 	console.log(y);
 
+			
+
 			for (var j = 0; j<y.length; j++) {
 
 				
-
 				var protein1= array[y[j]].name;
 
+				var index = j;
 
+			
 				//match protein1 to array to then get serving size 
 
-				var resultObject = search(protein1, array);
+				var resultObject = search(protein1, array, index);
 
 				
 
@@ -62,10 +92,12 @@ function protein_list() {
 
 						var fruit1= array[z[k]].name;
 
+						var index = k;
+
 
 						//match protein1 to array to then get serving size 
 
-						var resultObject = search(fruit1, array);
+						var resultObject = search(fruit1, array, index);
 
 
 					}
@@ -170,16 +202,26 @@ var test;
 
 
 
-			
+var count = 0; 
 
-function search(nameKey, myArray){
+var days = 0;
+
+function search(nameKey, myArray, index, days){
+
+	console.log(index);
+
+
+	
+	
     for (var i=0; i < myArray.length; i++) {
 
+ 
          if (myArray[i].name === nameKey) {
 
             resObj = myArray[i];
 
             
+
             
 
             if (listArray.indexOf(myArray[i].name) === -1) {
@@ -189,41 +231,54 @@ function search(nameKey, myArray){
 
         }
 
-        	if (myArray[i].other==="Protein")
-
-            if ($(".breakfast").is(':empty')) {
-
-            	$(".breakfast").append('<p>Breakfast : ' + resObj.name + " " +  resObj.value +'</p>');
-            }
-
-            else if ($(".lunch").is(':empty'))  {
-
-            	$(".lunch").append('<p>Lunch :' + resObj.name + " " + resObj.value +'</p>');
-            }
-
-            else {
-
-            	$(".dinner").append('<p>Dinner :' + resObj.name + " " +  resObj.value +'</p>');
-            }
+        	var html = '<div class ="card"><div class="card-block"><h4 class="card-title">Breakfast</h4>' + '<p class= "card-text">' + resObj.name + " " + resObj.value + '</p></div></div>';
 
 
+        	var html1 = '<div class ="card"><div class="card-block"><h4 class="card-title">Lunch</h4>' + '<p class= "card-text">' + resObj.name + " " + resObj.value + '</p></div></div>';
 
-        
+        	var html2 = '<div class ="card"><div class="card-block"><h4 class="card-title">Dinner</h4>' + '<p class= "card-text">' + resObj.name + " " + resObj.value + '</p></div></div>';
+       
+        	if (myArray[i].other==="Protein" ) {
 
-        	if (myArray[i].other==="Fruit") {
+        		if(index==0) {
+            		$(".breakfast").append(html);
+            	}
 
-            if ($(".snack1").is(':empty')) {
+           		if(index ==1) {
+            	$(".lunch").append(html1);
+            	}
 
-            	$(".snack1").append('<p>Snack : ' + resObj.name + " " + resObj.value + '</p>');
+            	if(index ==2){
 
-            }
-            	else {
-            $(".breakfast").append('<p>' + resObj.name + " " + resObj.value + '</p>');
+            	$(".dinner").append(html2);
+            	}
 
+ 				count++;
+ 				console.log(count);
+        }
+
+        	if(myArray[i].other ==="Fruit") {
+
+        		if (index == 0) {
+
+        			$(".breakfast").append('<div class ="card"><p class="card-text">' + resObj.name + " " + resObj.value + '</p></div>');
+
+        		}
+
+        		if(index== 1) {
+        		// $(".snack1").append('Snack1: ' + resObj.name + " " + resObj.value);
+
+        		}
+
+        		count++;
+        		console.log(count);
         	}
 
-        }
-				console.log(listArray);
+        
+				console.log(listArray); 
+
+				
+
 
 
         }
@@ -233,11 +288,12 @@ function search(nameKey, myArray){
 
 
 
+
 }
 
 var array = [
     { name:"Sardines", value:"3 oz cooked", other: "Protein" },
-    { name:"Eggs", value:"2", other: "Protein" },
+    { name:"Eggs", value:"2 large", other: "Protein" },
     { name:"Boneless Chicken or Turkey Breast", value:"3 oz cooked", other: "Protein" },
     { name:"Ground Chicken or Turkey", value:"3 oz cooked", other: "Protein" },
     { name:"Fish", value:"4 oz cooked", other: "Protein" },
@@ -269,5 +325,5 @@ var array = [
 
 
 
-
+var day=["Monday,Tuesday,Wednesday,Thursday,Friday"];
 			
