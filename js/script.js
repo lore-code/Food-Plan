@@ -1,12 +1,16 @@
 
 $("#info").hide();
 
+var day;
+
 $("#pickitems").on('click',function(){
 
 			for (var i=0; i<7; i++) {
+				day=i;
 				protein_list();
 				fruit_list();
 				$("#info").show();
+
 
 			}
 			
@@ -35,8 +39,10 @@ $("#emaillist").on ("click", function () {
 
 function email () {
 
-	var body = '<h4>' + listArray + '</h4>'
- 
+	for (var l=25; l>listArray.length; l-- ) {
+
+		var body = listArray[l];
+	}
     window.location.href = 'mailto:?&subject=' + encodeURI("This is my subject") + '&body=' + encodeURI(body);
 }
 
@@ -206,6 +212,8 @@ var count = 0;
 
 var days = 0;
 
+var title;
+
 function search(nameKey, myArray, index, days){
 
 	console.log(index);
@@ -231,47 +239,50 @@ function search(nameKey, myArray, index, days){
 
         }
 
-        	var html = '<div class ="card"><div class="card-block"><h4 class="card-title">Breakfast</h4>' + '<p class= "card-text">' + resObj.name + " " + resObj.value + '</p></div></div>';
 
-
-        	var html1 = '<div class ="card"><div class="card-block"><h4 class="card-title">Lunch</h4>' + '<p class= "card-text">' + resObj.name + " " + resObj.value + '</p></div></div>';
-
-        	var html2 = '<div class ="card"><div class="card-block"><h4 class="card-title">Dinner</h4>' + '<p class= "card-text">' + resObj.name + " " + resObj.value + '</p></div></div>';
-       
-        	if (myArray[i].other==="Protein" ) {
+        if (myArray[i].other==="Protein" ) {
 
         		if(index==0) {
-            		$(".breakfast").append(html);
+            		title = "Breakfast";
+            		
+
+            		
             	}
 
            		if(index ==1) {
-            	$(".lunch").append(html1);
+            	
+            	title = "Lunch";
             	}
 
             	if(index ==2){
 
-            	$(".dinner").append(html2);
+            	title = "Dinner";
             	}
 
  				count++;
  				console.log(count);
         }
 
-        	if(myArray[i].other ==="Fruit") {
 
-        		if (index == 0) {
+       
 
-        			$(".breakfast").append('<div class ="card"><p class="card-text">' + resObj.name + " " + resObj.value + '</p></div>');
 
-        		}
+        var html = '<div class="col m4"><h2>Day ' + (day + 1) + '</h2><div class="card blue-grey-darken-1"><div class="card-content"><span class="card-title">' + title +'</span><p>'+ resObj.name + " " + resObj.value +  '</p></div></div></div>';
 
-        		if(index== 1) {
-        		// $(".snack1").append('Snack1: ' + resObj.name + " " + resObj.value);
+        	if (myArray[i].other==="Protein" ) {
 
-        		}
+        			
+            		$("#cards").append(html);
 
-        		count++;
-        		console.log(count);
+            		
+        }
+
+
+       
+        
+
+        	
+
         	}
 
         
@@ -284,7 +295,7 @@ function search(nameKey, myArray, index, days){
         }
 
         
-    }
+    
 
 
 
@@ -325,5 +336,5 @@ var array = [
 
 
 
-var day=["Monday,Tuesday,Wednesday,Thursday,Friday"];
+
 			
