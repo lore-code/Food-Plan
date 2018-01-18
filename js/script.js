@@ -1,11 +1,10 @@
-
 $("#info").hide();
 
 var day;
 
 $("#pickitems").on('click',function(){
 
-			for (var i=0; i<7; i++) {
+			for (var i=1; i<8; i++) {
 				day=i;
 				protein_list();
 				fruit_list();
@@ -23,9 +22,12 @@ $("#pickAgain").on("click", function () {
 
 	
 	erase_list();
-	for (var i=0; i<7; i++) {
+
+	for (var i=1; i<8; i++) {
 	protein_list();
 	fruit_list();
+	count= 0;
+	day=i;
 
 }
 
@@ -49,10 +51,7 @@ function email () {
 
 function erase_list () {
 
-	$(".breakfast").empty();
-	$(".lunch").empty();
-	$(".snack1").empty();
-	$(".dinner").empty();
+	$("#info").empty();
 
 }
 
@@ -213,6 +212,16 @@ var count = 0;
 var days = 0;
 
 var title;
+var breakfast;
+var breakfast1;
+var lunch;
+var lunch1;
+var snack;
+var snack1;
+var dinner;
+var dinner1;
+
+var html;
 
 function search(nameKey, myArray, index, days){
 
@@ -244,6 +253,7 @@ function search(nameKey, myArray, index, days){
 
         		if(index==0) {
             		title = "Breakfast";
+            		breakfast = myArray[i].name;
             		
 
             		
@@ -252,11 +262,13 @@ function search(nameKey, myArray, index, days){
            		if(index ==1) {
             	
             	title = "Lunch";
+            	lunch = myArray[i].name;
             	}
 
             	if(index ==2){
 
             	title = "Dinner";
+            	dinner = myArray[i].name;
             	}
 
  				count++;
@@ -264,27 +276,25 @@ function search(nameKey, myArray, index, days){
         }
 
 
-       
+        if(myArray[i].other ==="Fruit"){
 
+        	if(index==0){
+        		title="Snack";
+        		snack=myArray[i].name;
 
-        var html = '<div class="col m4"><h2>Day ' + (day + 1) + '</h2><div class="card blue-grey-darken-1"><div class="card-content"><span class="card-title">' + title +'</span><p>'+ resObj.name + " " + resObj.value +  '</p></div></div></div>';
+        	}
 
-        	if (myArray[i].other==="Protein" ) {
-
-        			
-            		$("#cards").append(html);
-
-            		
+        	count++;
+        	console.log("THis is count " + count);
         }
 
 
        
-        
+        // <div class="col m4">
+
+       
 
         	
-
-        	}
-
         
 				console.log(listArray); 
 
@@ -295,12 +305,24 @@ function search(nameKey, myArray, index, days){
         }
 
         
-    
 
 
+	} 
+
+
+
+		html = '<div class="col l4 s12 card"><h2>Day ' + (count/4) + '</h2><p>Breakfast </br>' + breakfast + '</p><p>Snack </br>' + snack + '</p><p>Lunch </br>' + lunch + '</p><p>Dinner </br>' + dinner + '</p></div>';
+
+		if (count == 4 || count == 8 || count == 12 || count == 16 || count ==20 || count == 24 || count == 28) {
+
+		$("#info").append(html);
+		console.log(day);
+	}
 
 
 }
+
+
 
 var array = [
     { name:"Sardines", value:"3 oz cooked", other: "Protein" },
